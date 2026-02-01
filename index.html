@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <title>Espirito Chronicles | Magazine Flip Book</title>
+</head>
+
+<body>
+    <button id="fullscreen-button">
+        <img class="fullscreen-img" src="./images/fullscreen.png">
+    </button>
+    <div id="book">
+        <div class="page1"></div>
+        <div class="page2"></div>
+        <div class="page3"></div>
+        <div class="page4"></div>
+        <div class="page5"></div>
+        <div class="page6"></div>
+        <div class="page7"></div>
+        <div class="page8"></div>
+        <div class="page9"></div>
+        <div class="page10"></div>
+        <div class="page11"></div>
+        <div class="page12"></div>
+        <div class="page13"></div>
+        <div class="page14"></div>
+        <div class="page15"></div>
+        <div class="page16"></div>
+        <div class="page17"></div>
+        <div class="page18"></div>
+        <div class="page19"></div>
+        <div class="page20"></div>
+        <div class="page21"></div>
+        <div class="page22"></div>
+        <div class="page23"></div>
+        <div class="page24"></div>
+        <div class="page25"></div>
+        <div class="page26"></div>
+        <div class="page27"></div>
+        <div class="page28"></div>
+        <div class="page29"></div>
+        <div class="page30"></div>
+        <div class="page31"></div>
+        <div class="page32"></div>
+        <div class="page33"></div>
+        <div class="page34"></div>
+        <div class="page35"></div>
+        <div class="page36"></div>
+        <div class="page37"></div>
+        <div class="page38"></div>
+        <div class="page39"></div>
+        <div class="page40"></div>
+        <div class="page41"></div>
+        <div class="page42"></div>
+        <div class="page43"></div>
+        <div class="page44"></div>
+        <div class="page45"></div>
+        <div class="page46"></div>
+        <div class="page47"></div>
+        <div class="page48"></div>
+        <div class="page49"></div>
+        <div class="page50"></div>
+        <div class="page51"></div>
+        <div class="page52"></div>
+    </div>
+
+    <button id="autoFlipBtn">Auto Flip: OFF</button>
+
+    <div class="nav-buttons">
+        <button class="nav-button" id="prevPage">⟨ </button>
+        <button class="nav-button" id="nextPage"> ⟩</button>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="./turn.js"></script>
+    <script>
+        $('#book').turn({ gradients: true, acceleration: true });
+
+        $('#prevPage').click(function () {
+            $('#book').turn('previous');
+        });
+
+        $('#nextPage').click(function () {
+            $('#book').turn('next');
+        });
+
+        $(document).keydown(function (e) {
+            switch (e.which) {
+                case 37: // left arrow key
+                    $('#book').turn('previous');
+                    break;
+                case 39: // right arrow key
+                    $('#book').turn('next');
+                    break;
+            }
+        });
+
+
+
+        // Auto Flip Logic
+        let autoFlipInterval;
+        let isAutoFlipOn = false;
+        const autoFlipBtn = document.getElementById('autoFlipBtn');
+
+        function startAutoFlip() {
+            isAutoFlipOn = true;
+            autoFlipBtn.innerText = "Auto Flip: ON";
+            autoFlipBtn.style.backgroundColor = "rgba(0, 128, 0, 0.7)"; // Green tint
+
+            // Initial call after 5 seconds
+            autoFlipInterval = setInterval(() => {
+                $('#book').turn('next');
+            }, 5000);
+        }
+
+        function stopAutoFlip() {
+            isAutoFlipOn = false;
+            autoFlipBtn.innerText = "Auto Flip: OFF";
+            autoFlipBtn.style.backgroundColor = "rgba(0, 0, 0, 0.5)"; // Revert to original
+            clearInterval(autoFlipInterval);
+        }
+
+        autoFlipBtn.addEventListener('click', () => {
+            if (isAutoFlipOn) {
+                stopAutoFlip();
+            } else {
+                startAutoFlip();
+            }
+        });
+
+        const fullscreenButton = document.getElementById('fullscreen-button');
+        fullscreenButton.addEventListener('click', () => {
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
+            } else {
+                document.documentElement.requestFullscreen();
+            }
+        });
+    </script>
+</body>
+
+</html>
